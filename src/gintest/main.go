@@ -2,15 +2,18 @@ package main
 
 import (
 	"gintest/redis"
+	"gintest/utils"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
+
+	config := utils.InitConfig()
+	redis.Init(config)
 	// 初始化router
 	router := gin.New()
-	redis.Init()
 	router.GET("/", func(c *gin.Context) {
 		c.String(http.StatusOK, "hello world")
 	})
