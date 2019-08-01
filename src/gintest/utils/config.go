@@ -12,14 +12,16 @@ import (
 type Config struct {
 	Test  string
 	Redis redis
+	Mysql string
 }
 
-// Redis redis配置
-type redis struct {
-	Addr     string
-	Password string
-	DB       int `toml:"db"`
-}
+type (
+	redis struct {
+		Addr     string
+		Password string
+		DB       int `toml:"db"`
+	}
+)
 
 var (
 	cfg  *Config

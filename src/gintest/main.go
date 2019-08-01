@@ -1,6 +1,7 @@
 package main
 
 import (
+	"gintest/models"
 	"gintest/redis"
 	"gintest/utils"
 	"net/http"
@@ -9,9 +10,9 @@ import (
 )
 
 func main() {
-
 	config := utils.InitConfig()
 	redis.Init(config)
+	models.Init(config)
 	// 初始化router
 	router := gin.New()
 	router.GET("/", func(c *gin.Context) {

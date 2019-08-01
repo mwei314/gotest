@@ -22,9 +22,9 @@ func Init(conf *utils.Config) {
 			con, err := redis.Dial("tcp", conf.Redis.Addr,
 				redis.DialPassword(conf.Redis.Password),
 				redis.DialDatabase(conf.Redis.DB),
-				redis.DialConnectTimeout(20*time.Second),
-				redis.DialReadTimeout(10*time.Second),
-				redis.DialWriteTimeout(10*time.Second))
+				redis.DialConnectTimeout(5*time.Second),
+				redis.DialReadTimeout(2*time.Second),
+				redis.DialWriteTimeout(2*time.Second))
 			if err != nil {
 				return nil, err
 			}
@@ -34,7 +34,7 @@ func Init(conf *utils.Config) {
 }
 
 // Do 执行redis命令
-func Do(commandName string, args ...interface{}) (reply interface{}, err error) {
+func Do(commandName string, args ...interface{}) (interface{}, error) {
 	if RedisClient == nil {
 		panic("redis error")
 	}
