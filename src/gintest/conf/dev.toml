@@ -1,7 +1,0 @@
-test = "test"
-mysql = "test:asdf@tcp(127.0.0.1:3306)/test?charset=utf8mb4"
-
-[redis]
-addr = "127.0.0.1:6379"
-password = ""
-db = 0
