@@ -42,3 +42,13 @@ func Do(commandName string, args ...interface{}) (interface{}, error) {
 	defer conn.Close()
 	return conn.Do(commandName, args...)
 }
+
+// MultiDo 管道执行命令
+func MultiDo(para [][]interface{}) ([]interface{}, error) {
+	conn := RedisClient.Get()
+	defer conn.Close()
+	for _, v := range para {
+		conn.Send(v[0].(string), v[1:]...)
+	}
+	return redis.Values(conn.Do("Exec"))
+}
