@@ -1,5 +1,4 @@
-test = "test"
-mysql = "test:asdf@tcp(127.0.0.1:3306)/test?charset=utf8mb4"
+mysql = "mwei:mwei@123@tcp(127.0.0.1:3306)/gin_test?charset=utf8mb4&parseTime=true"
 
 [redis]
 addr = "127.0.0.1:6379"
