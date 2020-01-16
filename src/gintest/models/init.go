@@ -25,4 +25,7 @@ func Init(conf *utils.Config) {
 	// 设置每个链接的过期时间
 	gormDB.DB().SetConnMaxLifetime(time.Second * 5)
 	GormDB = gormDB
+
+	// 初始化数据库
+	GormDB.AutoMigrate(&User{})
 }
