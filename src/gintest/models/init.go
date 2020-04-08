@@ -9,7 +9,7 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-// 
+// GormDB MySQL连接
 var GormDB *gorm.DB
 
 // Init 初始化
