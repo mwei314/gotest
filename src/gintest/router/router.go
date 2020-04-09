@@ -11,4 +11,7 @@ func Init(router *gin.Engine) {
 	router.GET("/", contronller.Index)
 	router.GET("/redis/set", contronller.RedisSet)
 	router.GET("/redis/get", contronller.RedisGet)
+
+	// 用户相关
+	router.POST("/user", contronller.AddUser)
 }
