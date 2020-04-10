@@ -34,8 +34,9 @@ func AddUser(c *gin.Context) {
 	}
 	err := user.Insert()
 	if err != nil {
-		c.AbortWithError(501, err)
+		// TODO 处理error
+		returnJSON(c, 1, "新增失败", nil)
 		return
 	}
-	c.AbortWithStatusJSON(200, user)
+	returnJSON(c, 0, "", user)
 }
