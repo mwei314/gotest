@@ -1,4 +1,4 @@
-package contronller
+package controllers
 
 import (
 	"net/http"
@@ -14,10 +14,16 @@ func UserList(c *gin.Context) {
 	c.String(http.StatusOK, "hello world")
 }
 
-type addUserValid struct {
-	name string `form:"name" binding:"required"`
-	pass string `form:"pass" binding:"required"`
-}
+type (
+	addUserValid struct {
+		name string `form:"name" binding:"required"`
+		pass string `form:"pass" binding:"required"`
+	}
+	userListValid struct {
+		page  string `form:"name" binding:"required"`
+		index string `form:"pass" binding:"required"`
+	}
+)
 
 // AddUser 新增用户
 func AddUser(c *gin.Context) {

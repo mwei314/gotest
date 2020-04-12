@@ -1,7 +1,7 @@
 package models
 
 import (
-	"gintest/utils"
+	"gintest/libs"
 	"time"
 
 	// mysql
@@ -13,7 +13,7 @@ import (
 var GormDB *gorm.DB
 
 // Init 初始化
-func Init(conf *utils.Config) {
+func Init(conf *libs.Config) {
 	gormDB, err := gorm.Open("mysql", conf.Mysql)
 	if err != nil {
 		panic(err)

@@ -1,17 +1,16 @@
 package main
 
 import (
+	"gintest/libs"
 	"gintest/models"
-	"gintest/redis"
-	"gintest/utils"
 	"gintest/router"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	config := utils.InitConfig()
-	redis.Init(config)
+	config := libs.InitConfig()
+	libs.RedisInit(config)
 	models.Init(config)
 	// 初始化router
 	app := gin.New()

@@ -1,4 +1,4 @@
-package utils
+package libs
 
 import (
 	"os"
@@ -10,13 +10,13 @@ import (
 
 // Config 配置文件数据
 type Config struct {
-	Test  string
-	Redis redis
-	Mysql string
+	Test        string
+	RedisConfig redisConfig
+	Mysql       string
 }
 
 type (
-	redis struct {
+	redisConfig struct {
 		Addr     string
 		Password string
 		DB       int `toml:"db"`
