@@ -23,10 +23,15 @@ type addUserValid struct {
 func AddUser(c *gin.Context) {
 	var userValid addUserValid
 	if err := c.ShouldBind(userValid); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		returnJSON(c, 1, "参数错误", nil)
 		return
 	}
 	name := c.PostForm("name")
+	checkUser := models.FindUserByName(name)
+	if checkUser.ID != 0 {
+		returnJSON(c, 1, "姓名重复", nil)
+		return
+	}
 	pass := c.PostForm("pass")
 	user := &models.User{
 		Name: name,

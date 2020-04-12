@@ -16,9 +16,13 @@ func (User) TableName() string {
 type Users []User
 
 // Insert 新增用户
-func (user User) Insert() error {
-	result := GormDB.Create(&user)
-	return result.Error
+func (user *User) Insert() error {
+	result := GormDB.Create(user)
+	if result.Error != nil {
+		return result.Error
+	}
+	user = result.Value.(*User)
+	return nil
 }
 
 // List 获取用户列表
@@ -30,4 +34,11 @@ func (user User) List() {
 func (user User) Update() error {
 	result := GormDB.Update(&user)
 	return result.Error
+}
+
+// FindUserByName 根据名称查找用户
+func FindUserByName(userName string) User {
+	var user User
+	GormDB.Where(&User{Name: userName}).First(&user)
+	return user
 }
