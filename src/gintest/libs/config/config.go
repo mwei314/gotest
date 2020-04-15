@@ -14,6 +14,7 @@ type (
 		Test  string
 		Redis Redis
 		Mysql string
+		Logger
 	}
 
 	// Redis redis客户端配置
@@ -21,6 +22,10 @@ type (
 		Addr     string
 		Password string
 		DB       int `toml:"db"`
+	}
+
+	Logger struct {
+		Path string
 	}
 )
 

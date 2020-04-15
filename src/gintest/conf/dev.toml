@@ -4,3 +4,6 @@ mysql = "mwei:mwei@123@tcp(127.0.0.1:3306)/gin_test?charset=utf8mb4&parseTime=tr
 addr = "127.0.0.1:6379"
 password = ""
 db = 0
+
+[logger]
+path = "./log"
