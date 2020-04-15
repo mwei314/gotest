@@ -8,15 +8,16 @@ import (
 	"github.com/BurntSushi/toml"
 )
 
-// Config 配置文件数据
-type Config struct {
-	Test  string
-	Redis redis
-	Mysql string
-}
-
 type (
-	redis struct {
+	// Config 配置文件数据
+	Config struct {
+		Test  string
+		Redis Redis
+		Mysql string
+	}
+
+	// Redis redis客户端配置
+	Redis struct {
 		Addr     string
 		Password string
 		DB       int `toml:"db"`

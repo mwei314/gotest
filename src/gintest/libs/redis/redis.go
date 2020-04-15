@@ -11,7 +11,7 @@ import (
 var RedisClient *redis.Pool
 
 // Init 初始化redis客户端
-func Init(conf *config.Config) {
+func Init(redisConf *config.Redis) {
 	// 建立连接池
 	RedisClient = &redis.Pool{
 		MaxIdle:     5,
@@ -19,9 +19,9 @@ func Init(conf *config.Config) {
 		IdleTimeout: 240 * time.Second,
 		Wait:        true,
 		Dial: func() (redis.Conn, error) {
-			con, err := redis.Dial("tcp", conf.Redis.Addr,
-				redis.DialPassword(conf.Redis.Password),
-				redis.DialDatabase(conf.Redis.DB),
+			con, err := redis.Dial("tcp", redisConf.Addr,
+				redis.DialPassword(redisConf.Password),
+				redis.DialDatabase(redisConf.DB),
 				redis.DialConnectTimeout(5*time.Second),
 				redis.DialReadTimeout(2*time.Second),
 				redis.DialWriteTimeout(2*time.Second))

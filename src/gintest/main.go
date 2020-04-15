@@ -11,8 +11,8 @@ import (
 
 func main() {
 	config := config.Init()
-	redis.Init(config)
-	models.Init(config)
+	redis.Init(&config.Redis)
+	models.Init(config.Mysql)
 	// 初始化router
 	app := gin.New()
 	router.Init(app)
