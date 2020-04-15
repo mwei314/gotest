@@ -1,4 +1,4 @@
-package libs
+package config
 
 import (
 	"os"
@@ -10,13 +10,13 @@ import (
 
 // Config 配置文件数据
 type Config struct {
-	Test        string
-	RedisConfig redisConfig
-	Mysql       string
+	Test  string
+	Redis redis
+	Mysql string
 }
 
 type (
-	redisConfig struct {
+	redis struct {
 		Addr     string
 		Password string
 		DB       int `toml:"db"`
@@ -28,8 +28,8 @@ var (
 	once sync.Once
 )
 
-// InitConfig 初始化配置
-func InitConfig() *Config {
+// Init 初始化配置
+func Init() *Config {
 	once.Do(func() {
 		confPath := getConfFile()
 		filePath, err := filepath.Abs(confPath)

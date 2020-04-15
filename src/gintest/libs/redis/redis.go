@@ -1,6 +1,7 @@
-package libs
+package redis
 
 import (
+	"gintest/libs/config"
 	"time"
 
 	"github.com/gomodule/redigo/redis"
@@ -9,8 +10,8 @@ import (
 // RedisClient redis客户端
 var RedisClient *redis.Pool
 
-// RedisInit 初始化redis客户端
-func RedisInit(conf *Config) {
+// Init 初始化redis客户端
+func Init(conf *config.Config) {
 	// 建立连接池
 	RedisClient = &redis.Pool{
 		MaxIdle:     5,
@@ -18,9 +19,9 @@ func RedisInit(conf *Config) {
 		IdleTimeout: 240 * time.Second,
 		Wait:        true,
 		Dial: func() (redis.Conn, error) {
-			con, err := redis.Dial("tcp", conf.RedisConfig.Addr,
-				redis.DialPassword(conf.RedisConfig.Password),
-				redis.DialDatabase(conf.RedisConfig.DB),
+			con, err := redis.Dial("tcp", conf.Redis.Addr,
+				redis.DialPassword(conf.Redis.Password),
+				redis.DialDatabase(conf.Redis.DB),
 				redis.DialConnectTimeout(5*time.Second),
 				redis.DialReadTimeout(2*time.Second),
 				redis.DialWriteTimeout(2*time.Second))
@@ -32,8 +33,8 @@ func RedisInit(conf *Config) {
 	}
 }
 
-// RedisDo 执行redis命令
-func RedisDo(commandName string, args ...interface{}) (interface{}, error) {
+// Do 执行redis命令
+func Do(commandName string, args ...interface{}) (interface{}, error) {
 	if RedisClient == nil {
 		panic("redis error")
 	}
@@ -42,8 +43,8 @@ func RedisDo(commandName string, args ...interface{}) (interface{}, error) {
 	return conn.Do(commandName, args...)
 }
 
-// RedisMultiDo 管道执行命令
-func RedisMultiDo(para [][]interface{}) ([]interface{}, error) {
+// MultiDo 管道执行命令
+func MultiDo(para [][]interface{}) ([]interface{}, error) {
 	conn := RedisClient.Get()
 	defer conn.Close()
 	for _, v := range para {

@@ -1,7 +1,8 @@
 package main
 
 import (
-	"gintest/libs"
+	"gintest/libs/config"
+	"gintest/libs/redis"
 	"gintest/models"
 	"gintest/router"
 
@@ -9,8 +10,8 @@ import (
 )
 
 func main() {
-	config := libs.InitConfig()
-	libs.RedisInit(config)
+	config := config.Init()
+	redis.Init(config)
 	models.Init(config)
 	// 初始化router
 	app := gin.New()

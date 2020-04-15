@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"gintest/libs"
+	"gintest/libs/redis"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -9,7 +9,7 @@ import (
 
 // RedisGet 测试redis的get操作
 func RedisGet(c *gin.Context) {
-	info, err := libs.RedisDo("GET", "test")
+	info, err := redis.Do("GET", "test")
 	if err != nil {
 		c.String(http.StatusExpectationFailed, "error")
 		return
@@ -23,7 +23,7 @@ func RedisGet(c *gin.Context) {
 
 // RedisSet 测试redis的set操作
 func RedisSet(c *gin.Context) {
-	_, err := libs.RedisDo("SET", "test", "test", "EX", 1000)
+	_, err := redis.Do("SET", "test", "test", "EX", 1000)
 	if err != nil {
 		c.String(http.StatusExpectationFailed, "error")
 		return
