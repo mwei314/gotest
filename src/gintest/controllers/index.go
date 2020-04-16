@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"gintest/libs/logger"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -8,6 +9,7 @@ import (
 
 // Index 首页控制器
 func Index(c *gin.Context) {
+	logger.Info("index page")
 	c.String(http.StatusOK, "hello world")
 }
 

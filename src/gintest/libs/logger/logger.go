@@ -1,6 +1,7 @@
 package logger
 
 import (
+	"fmt"
 	"io"
 	"time"
 
@@ -9,8 +10,8 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
-// Logger 日志实例
-var Logger *zap.Logger
+// logger 日志实例
+var logger *zap.Logger
 
 // Init 日志初始化
 func Init(logFilePath string) {
@@ -24,9 +25,6 @@ func Init(logFilePath string) {
 		},
 		CallerKey:    "file",
 		EncodeCaller: zapcore.ShortCallerEncoder,
-		EncodeDuration: func(d time.Duration, enc zapcore.PrimitiveArrayEncoder) {
-			enc.AppendInt64(int64(d) / 1000000)
-		},
 	})
 
 	infoLevel := zap.LevelEnablerFunc(func(lvl zapcore.Level) bool {
@@ -45,9 +43,8 @@ func Init(logFilePath string) {
 		zapcore.NewCore(encoder, zapcore.AddSync(warnWriter), warnLevel),
 	)
 
-	Logger = zap.New(core, zap.AddCaller())
-	Logger.Info("logger start")
-	defer Logger.Sync()
+	logger = zap.New(core)
+	defer logger.Sync()
 }
 
 // getWriter 使用rotatelogs切割日志
@@ -66,4 +63,48 @@ func getWriter(filename string) io.Writer {
 		panic(err)
 	}
 	return hook
+}
+
+// Info 常规日志，使用zap.Field
+func Info(msg string, args ...zap.Field) {
+	logger.Info(msg, args...)
+}
+
+// Warn 告警日志，使用zap.Field
+func Warn(msg string, args ...zap.Field) {
+	logger.Warn(msg, args...)
+}
+
+// Error 错误日志，使用zap.Field
+func Error(msg string, args ...zap.Field) {
+	logger.Error(msg, args...)
+}
+
+// Debug 调试日志，使用zap.Field
+func Debug(msg string, args ...zap.Field) {
+	logger.Debug(msg, args...)
+}
+
+// Infof 常规日志，使用interface{}
+func Infof(msg string, args ...interface{}) {
+	logMsg := fmt.Sprintf(msg, args...)
+	logger.Info(logMsg)
+}
+
+// Warnf 告警日志，使用interface{}
+func Warnf(msg string, args ...interface{}) {
+	logMsg := fmt.Sprintf(msg, args...)
+	logger.Warn(logMsg)
+}
+
+// Errorf 错误日志，使用interface{}
+func Errorf(msg string, args ...interface{}) {
+	logMsg := fmt.Sprintf(msg, args...)
+	logger.Error(logMsg)
+}
+
+// Debugf 调试日志，使用interface{}
+func Debugf(msg string, args ...interface{}) {
+	logMsg := fmt.Sprintf(msg, args...)
+	logger.Debug(logMsg)
 }

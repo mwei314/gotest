@@ -11,10 +11,10 @@ import (
 type (
 	// Config 配置文件数据
 	Config struct {
-		Test  string
-		Redis Redis
-		Mysql string
-		Logger
+		Test   string
+		Redis  Redis
+		Mysql  string
+		Logger Logger
 	}
 
 	// Redis redis客户端配置
@@ -24,6 +24,7 @@ type (
 		DB       int `toml:"db"`
 	}
 
+	// Logger 日志相关配置
 	Logger struct {
 		Path string
 	}

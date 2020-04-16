@@ -20,5 +20,5 @@ func main() {
 	router.Init(app)
 	//启动服务
 	app.Run(":8080")
-	logger.Logger.Info("server start!")
+	logger.Info("server start!")
 }
